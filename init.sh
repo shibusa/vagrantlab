@@ -5,6 +5,9 @@ yum upgrade -y
 #Install epel-release (Extra Packages for Enterprise Linux)
 yum install epel-release -y
 
+#Install compiler tools
+yum install make gcc kernel-devel-`uname -r` -y
+
 #Install NTP (Remember to change selected peers)
 yum install ntp -y
 systemctl enable ntpd
