@@ -24,8 +24,8 @@ if [[ $checksumrun == $checksumactual ]]; then
   ./configure
   make
   sudo make install
+  cd ../
 fi
 
 # Remove files
-cd ../
 rm ruby-$rubyversion.tar.gz
