@@ -1,7 +1,8 @@
-#!/bin/bash
+#/usr/bin/env bash
 # Check if Ruby exists
-if ! [ $(ruby -v) == "-bash: ruby: command not found"]; then
-  exit
+if [[ $(/usr/local/bin/ruby -v) ]]; then
+  echo "Ruby already installed"
+  exit 0
 fi
 
 # Ruby Version

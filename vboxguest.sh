@@ -1,4 +1,10 @@
-#!/bin/bash
+#/usr/bin/env bash
+# Check if Guest Additions exists
+if [[ $(lsmod | grep vboxguest | awk '{print $1}') ]]; then
+  echo "Guest Additions already installed"
+  exit 0
+fi
+
 # Update everything
 yum check-update -y
 yum install make gcc kernel-devel-`uname -r` -y

@@ -1,4 +1,14 @@
-#!/bin/bash
+#/usr/bin/env bash
+# Standalone config https://docs.chef.io/install_server.html#standalone
+# Chef Version
+chefversion="12.13.0"
+
+# Check if Chef Server exists
+if [[ $(head -n1 /opt/opscode/version-manifest.txt | awk '{print $2}') == $chefversion ]]; then
+  echo "Chef Server already installed"
+  exit 0
+fi
+
 # Chef Server prerequisites https://docs.chef.io/install_server_pre.html
 if ! [ $(getenforce) == "Permissive" ]; then
   setenforce Permissive
@@ -6,10 +16,6 @@ fi
 
 ipaddress=$(ip addr show eth1 | grep inet | awk '{print $2}')
 echo -e "${ipaddress%???} `hostname` `hostname -s`" | sudo tee -a /etc/hosts
-
-# Standalone config https://docs.chef.io/install_server.html#standalone
-# Chef Version
-chefversion="12.13.0"
 
 #Download Chef Server
 if [[ -z $(ls | grep chef-server-core-$chefversion-1.el7.x86_64.rpm) ]]; then
