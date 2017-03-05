@@ -14,9 +14,6 @@ if ! [ $(getenforce) == "Permissive" ]; then
   setenforce Permissive
 fi
 
-ipaddress=$(ip addr show eth1 | grep inet | awk '{print $2}')
-echo -e "${ipaddress%???} `hostname` `hostname -s`" | sudo tee -a /etc/hosts
-
 #Download Chef Server
 if [[ -z $(ls | grep chef-server-core-$chefversion-1.el7.x86_64.rpm) ]]; then
   curl -O https://packages.chef.io/files/stable/chef-server/$chefversion/el/7/chef-server-core-$chefversion-1.el7.x86_64.rpm
