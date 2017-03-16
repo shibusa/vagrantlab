@@ -1,16 +1,16 @@
 #/usr/bin/env bash
+#Virtualbox Version
+vboxversion="5.1.18"
+
 # Check if Guest Additions exists
-if [[ $(lsmod | grep vboxguest | awk '{print $1}') ]]; then
-  echo "Guest Additions already installed"
+if [[ $(modinfo vboxguest | grep -m 1  version | awk '{print $2}') == $vboxversion ]]; then
+  echo "Guest Additions already installed and up to date"
   exit 0
 fi
 
 # Update everything
 yum check-update -y
 yum install make gcc kernel-devel-`uname -r` -y
-
-#Virtualbox Version
-vboxversion="5.1.14"
 
 #Download Guest Additions and Hashfile
 if [[ -z $(ls | grep VBoxGuestAdditions_$vboxversion.iso) ]]; then

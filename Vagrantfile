@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
     core.vm.provision :shell, path: "vboxguest.sh"
     core.vm.provision :shell, path: "rubycompile.sh"
     core.vm.provision :shell, path: "chefserver.sh"
-    # core.vm.provision :shell, path: "chefdownloads.sh"
+    core.vm.provision :shell, path: "chefdownloads.sh"
   end
 
   # Chef clients
