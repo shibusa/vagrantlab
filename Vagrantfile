@@ -6,11 +6,16 @@ ipstart = 200
 chefserver = "core"
 domain = "shibusa.io"
 
-Vagrant.require_version ">= 1.9.2"
+Vagrant.require_version ">= 1.9.3"
 Vagrant.configure("2") do |config|
   # Vagrant ssh private key
   config.ssh.private_key_path = ["~/.ssh/id_rsa", "~/.vagrant.d/insecure_private_key"]
   config.ssh.insert_key = false
+
+  # Enable for GNS3 lab purposes
+  # config.vm.provider "virtualbox" do |vb|
+  #     vb.customize ["modifyvm", :id, "--nic2", "generic"]
+  # end
 
   # Chef server
   config.vm.define chefserver, primary: true do |core|
