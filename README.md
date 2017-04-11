@@ -7,9 +7,11 @@ Virtualbox https://www.virtualbox.org/
 These are vagrant clusters I'm using to simulate core services found within a production environment. Each cluster can be found in designated folder.  Vagrant machines (excluding NonGNS3) are used in conjunction with virtual network environment of https://github.com/shibusa/GNS3hierarchical.
 
 ## Current design plans
-VLAN 5 - Network Monitor traffic
-VLAN 100 - Core Infrastructure Devices
-VLAN 200 - Production Servers
+VLAN | ROLE
+--- | --- | ---
+5 | Network Monitor traffic
+100 | Core Infrastructure Devices
+200 | Production Servers
 
 ### Core Infrastructure Devices
 These are mission critical servers such DNS, Central Authentication (LDAP/TACACS+), Monitoring/Logging, etc.
