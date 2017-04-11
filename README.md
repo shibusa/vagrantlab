@@ -8,7 +8,7 @@ These are vagrant clusters I'm using to simulate core services found within a pr
 
 ## Current design plans
 VLAN | ROLE
---- | --- | ---
+--- | ---
 5 | Network Monitor traffic
 100 | Core Infrastructure Devices
 200 | Production Servers
