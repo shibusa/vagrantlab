@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+domain = "shibusa.io"
+clustercount = 3
+
+Vagrant.require_version ">= 1.9.3"
+Vagrant.configure("2") do |config|
+  # Vagrant ssh private key
+  config.ssh.private_key_path = ["~/.ssh/id_rsa", "~/.vagrant.d/insecure_private_key"]
+  config.ssh.insert_key = false
+
+  # NGINX Server
+  config.vm.define "nginx", primary: true do |core|
+    core.vm.box = "centos/7"
+    core.vm.hostname = "nginx.#{domain}"
+    core.vm.provision "file", source: "~/.ssh/id_rsa", destination: "~/.ssh/"
+    core.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
+    core.vm.provision :shell, path: "../init.sh"
+    core.vm.provision :shell, path: "../vboxguest.sh"
+  end
+
+  # HTTP Servers
+  (1..clientcount).each do |i|
+    config.vm.define "httpserver-#{i}" do |node|
+      node.vm.box = "centos/7"
+      node.vm.hostname = "httpserver-#{i}.#{domain}"
+      node.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
+      node.vm.provision :shell, path: "../init.sh"
+      node.vm.provision :shell, path: "../vboxguest.sh"
+    end
+  end
+end
