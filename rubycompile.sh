@@ -6,7 +6,7 @@ if [[ $(/usr/local/bin/ruby -v) ]]; then
 fi
 
 # Ruby Version
-rubyversion="2.4.0"
+rubyversion="2.4.1"
 cd /tmp
 
 # Download Ruby

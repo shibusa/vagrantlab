@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 #Virtualbox Version
-vboxversion="5.1.18"
+vboxversion="5.1.22"
 
 # Check if Guest Additions exists
 if [[ $(modinfo vboxguest | grep -m 1  version | awk '{print $2}') == $vboxversion ]]; then
