@@ -33,3 +33,5 @@ fi
 
 # Remove files
 rm VBoxGuestAdditions_$vboxversion.iso SHA256SUMS
+
+usermod -a -G vboxsf vagrant

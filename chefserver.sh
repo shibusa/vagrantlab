@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 # Standalone config https://docs.chef.io/install_server.html#standalone
 # Chef Version
-chefversion="12.14.0"
+chefversion="12.15.8"
 
 # Check if Chef Server exists
 if [[ $(head -n1 /opt/opscode/version-manifest.txt | awk '{print $2}') == $chefversion ]]; then
