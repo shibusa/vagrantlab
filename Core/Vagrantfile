@@ -22,20 +22,18 @@ Vagrant.configure("2") do |config|
     core.vm.provision :shell, inline: "if [[ -z $(less /etc/hosts | grep #{iprange}.#{ipstart}) ]]; then echo -e '#{iprange}.#{ipstart}\t#{chefserver}.#{domain}\t#{chefserver}' | tee -a /etc/hosts; fi"
     core.vm.provision :shell, path: "../init.sh"
     core.vm.provision :shell, path: "../vboxguest.sh"
-    core.vm.provision :shell, path: "../rubycompile.sh"
-    core.vm.provision :shell, path: "../chefserver.sh"
-    core.vm.provision :shell, path: "../chefdownloads.sh"
+    core.vm.provision :shell, path: "../postgresql.sh"
   end
 
-  # Chef clients
-  (1..clientcount).each do |i|
-    config.vm.define "node-#{i}" do |node|
-      node.vm.box = "centos/7"
-      node.vm.hostname = "node-#{i}.shibusa.io"
-      node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: "#{iprange}.#{ipstart + i}"
-      node.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
-      node.vm.provision :shell, inline: "if [[ -z $(less /etc/hosts | grep #{iprange}.#{ipstart}) ]]; then echo -e '#{iprange}.#{ipstart}\t#{chefserver}.#{domain}\t#{chefserver}' | tee -a /etc/hosts; fi"
-      node.vm.provision :shell, path: "../vboxguest.sh"
-    end
-  end
+  # # Chef clients
+  # (1..clientcount).each do |i|
+  #   config.vm.define "node-#{i}" do |node|
+  #     node.vm.box = "centos/7"
+  #     node.vm.hostname = "node-#{i}.shibusa.io"
+  #     node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: "#{iprange}.#{ipstart + i}"
+  #     node.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
+  #     node.vm.provision :shell, inline: "if [[ -z $(less /etc/hosts | grep #{iprange}.#{ipstart}) ]]; then echo -e '#{iprange}.#{ipstart}\t#{chefserver}.#{domain}\t#{chefserver}' | tee -a /etc/hosts; fi"
+  #     node.vm.provision :shell, path: "../vboxguest.sh"
+  #   end
+  # end
 end

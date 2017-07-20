@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 # Install from distribution https://www.zabbix.com/documentation/3.2/manual/installation/getting_zabbix
 # Zabbix Version
 zabbixversion="3.2.5"

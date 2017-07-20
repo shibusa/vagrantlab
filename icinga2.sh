@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 # https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/getting-started#getting-started
 
 # Permissive selinux

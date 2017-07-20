@@ -1,10 +1,10 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 #Virtualbox Version
-vboxversion="5.1.22"
+vboxversion="5.1.24"
 
 # Check if Guest Additions exists
 if [[ $(modinfo vboxguest | grep -m 1  version | awk '{print $2}') == $vboxversion ]]; then
-  echo "Guest Additions already installed and up to date"
+  echo "Guest Additions $vboxversion already installed and up to date"
   exit 0
 fi
 
@@ -35,3 +35,10 @@ fi
 rm VBoxGuestAdditions_$vboxversion.iso SHA256SUMS
 
 usermod -a -G vboxsf vagrant
+
+
+if [[ $(modinfo vboxguest | grep -m 1  version | awk '{print $2}') == $vboxversion ]]; then
+  echo "VirtualBox Guest Additions $vboxversion installed"
+else
+  echo "VirtualBox Guest Additions $vboxversion failed to install"
+fi
