@@ -2,7 +2,6 @@
 
 # Python3 Version
 pythonversion="3.6.2"
-checksumactual="e1a36bfffdd1d3a780b1825daf16e56c"
 
 # Check if python3 exists
 if [[ $(/usr/local/bin/python3 -V | awk '{print $2}') == $pythonversion ]]; then
@@ -19,12 +18,14 @@ fi
 
 # Check if hash matches, run if match succeeds
 checksumrun=$(md5sum Python-$pythonversion.tgz | awk '{print $1}')
+checksumactual="e1a36bfffdd1d3a780b1825daf16e56c"
+
 if  [[ $checksumrun == $checksumactual ]]; then
   yum-builddep python -y
 
   tar xf Python-$pythonversion.tgz
   cd Python-$pythonversion
-  
+
   ./configure
   make
   make install
