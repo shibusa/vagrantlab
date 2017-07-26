@@ -17,7 +17,7 @@ fi
 
 # Download Guest Additions if not copied over by vagrant provision
 if [[ -z $(ls | grep VBoxGuestAdditions_$vboxversion.iso) ]]; then
-  echo -e "${GREEN}Downloading Virtualbox Guest Additions $vboxversion for VMs${NC}"
+  echo -e "${GREEN}Downloading Virtualbox Guest Additions $vboxversion${NC}"
   curl -O http://download.virtualbox.org/virtualbox/$vboxversion/VBoxGuestAdditions_$vboxversion.iso
 fi
 
@@ -26,14 +26,14 @@ checksumactual=$(curl --silent http://download.virtualbox.org/virtualbox/$vboxve
 
 # Check if hash matches, run if match succeeds
 if [[ $checksumrun == $checksumactual ]]; then
-  yum check-update -y
-  yum install make gcc kernel-devel-`uname -r` -y
+  sudo yum check-update -y
+  sudo yum install make gcc kernel-devel-`uname -r` -y
 
-  mount VBoxGuestAdditions_$vboxversion.iso /mnt
-  sh /mnt/VBoxLinuxAdditions.run
-  umount /mnt
+  sudo mount VBoxGuestAdditions_$vboxversion.iso /mnt
+  sudo sh /mnt/VBoxLinuxAdditions.run
+  sudo umount /mnt
 
-  usermod -a -G vboxsf vagrant
+  sudo usermod -a -G vboxsf vagrant
 fi
 
 rm -rf VBoxGuestAdditions_$vboxversion.iso

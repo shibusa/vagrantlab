@@ -8,10 +8,10 @@ if [[ $(zabbix_server -V | grep zabbix_server | awk '{print $3}') == $zabbixvers
   exit 0
 fi
 
-rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm
-yum install zabbix-server-mysql zabbix-web-mysql mariadb-server mariadb net-snmp net-snmp-utils -y
+sudo rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm
+sudo yum install zabbix-server-mysql zabbix-web-mysql mariadb-server mariadb net-snmp net-snmp-utils -y
 systemctl enable mariadb
-systemctl start mariadb
+sudo systemctl start mariadb
 
 # mysql -u root -p
 # create database zabbix character set utf8 collate utf8_bin;
@@ -19,17 +19,17 @@ systemctl start mariadb
 # quit;
 # zcat /usr/share/doc/zabbix-server-mysql-$zabbixversion/create.sql.gz | mysql -u zabbix -p zabbix
 
-setsebool -P httpd_can_connect_zabbix on
-sed -i -e 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
-setenforce Permissive
+sudo setsebool -P httpd_can_connect_zabbix on
+sudo sed -i -e 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
+sudo setenforce Permissive
 
-sed -i -e 's|# DBPassword=|# DBPassword=\nDBPassword='$password'|g' /etc/zabbix/zabbix_server.conf
-systemctl enable zabbix-server
-systemctl start zabbix-server
+sudo sed -i -e 's|# DBPassword=|# DBPassword=\nDBPassword='$password'|g' /etc/zabbix/zabbix_server.conf
+sudo systemctl enable zabbix-server
+sudo systemctl start zabbix-server
 
-sed -i -e 's|# php_value date.timezone Europe/Riga|php_value date.timezone America/Los_Angeles|g' /etc/httpd/conf.d/zabbix.conf
-sed -i -e 's|DocumentRoot "/var/www/html"|DocumentRoot "/usr/share/zabbix"|g' /etc/httpd/conf.d/zabbix.conf
-systemctl enable httpd
-systemctl start httpd
+sudo sed -i -e 's|# php_value date.timezone Europe/Riga|php_value date.timezone America/Los_Angeles|g' /etc/httpd/conf.d/zabbix.conf
+sudo sed -i -e 's|DocumentRoot "/var/www/html"|DocumentRoot "/usr/share/zabbix"|g' /etc/httpd/conf.d/zabbix.conf
+sudo systemctl enable httpd
+sudo systemctl start httpd
 
 # mysql_secure_installation

@@ -16,6 +16,7 @@ fi
 
 # Download Git if not copied over by vagrant provision
 if [[ -z $(ls | grep git-$gitversion.tar.gz) ]]; then
+  echo -e "${GREEN}Downloading Git $gitversion${NC}"
   curl -O https://www.kernel.org/pub/software/scm/git/git-$gitversion.tar.gz
 fi
 
@@ -24,9 +25,9 @@ checksumactual=$(curl --silent https://www.kernel.org/pub/software/scm/git/sha25
 
 # Check if hash matches, run if match succeeds
 if [[ $checksumrun == $checksumactual ]]; then
-  yum check-update -y
-  yum install dh-autoreconf curl-devel expat-devel gettext-devel asciidoc xmlto docbook2X zlib-devel perl-devel -y
-  ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
+  sudo yum check-update -y
+  sudo yum install dh-autoreconf curl-devel expat-devel gettext-devel asciidoc xmlto docbook2X zlib-devel perl-devel -y
+  sudo ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 
   tar -xf git-$gitversion.tar.gz
   cd git-$gitversion

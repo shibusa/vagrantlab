@@ -16,6 +16,7 @@ fi
 
 # Download Ruby if not copied over by vagrant provision
 if [[ -z $(ls | grep ruby-$rubyversion.tar.gz) ]]; then
+  echo -e "${GREEN}Downloading Ruby $rubyversion${NC}"
   curl -O https://cache.ruby-lang.org/pub/ruby/${rubyversion%??}/ruby-$rubyversion.tar.gz
 fi
 

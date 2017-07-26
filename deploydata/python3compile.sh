@@ -21,7 +21,7 @@ checksumrun=$(md5sum Python-$pythonversion.tgz | awk '{print $1}')
 checksumactual="e1a36bfffdd1d3a780b1825daf16e56c"
 
 if  [[ $checksumrun == $checksumactual ]]; then
-  yum-builddep python -y
+  sudo yum-builddep python -y
 
   tar xf Python-$pythonversion.tgz
   cd Python-$pythonversion

@@ -12,7 +12,7 @@ fi
 
 # Chef Server prerequisites https://docs.chef.io/install_server_pre.html
 if ! [ $(getenforce) == "Permissive" ]; then
-  sed -i -e 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
+  sudo sed -i -e 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
 fi
 
 #Download Chef Server
@@ -24,7 +24,7 @@ checksumrun=$(sha256sum chef-server-core-$chefserverversion-1.el7.x86_64.rpm | a
 
 # Check if hash matches, run if match succeeds
 if [[ $checksumrun == $checksumactual ]]; then
-  rpm -Uvh chef-server-core-$chefserverversion-1.el7.x86_64.rpm
+  sudo rpm -Uvh chef-server-core-$chefserverversion-1.el7.x86_64.rpm
   chef-server-ctl reconfigure
 fi
 

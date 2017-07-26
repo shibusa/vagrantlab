@@ -1,23 +1,27 @@
 #!/usr/bin/env bash
 # Upgrade everything
-yum upgrade -y
+sudo yum upgrade -y
 
 #Install epel-release (Extra Packages for Enterprise Linux)
-yum install epel-release -y
+sudo yum install epel-release -y
 
 #Install compiler tools
-yum install make gcc kernel-devel-`uname -r` -y
+sudo yum install make gcc kernel-devel-`uname -r` -y
 
 #Install NTP (Remember to change selected peers)
-yum install ntp -y
-systemctl enable ntpd
-systemctl start ntpd
+sudo yum install ntp -y
+sudo systemctl enable ntpd
+sudo systemctl start ntpd
 
 #Set Timezone
-timedatectl set-timezone America/Los_Angeles
+sudo timedatectl set-timezone America/Los_Angeles
 
 #Disable IPv6
-sysctl -w net.ipv6.conf.all.disable_ipv6=1
-sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+
+#SELINUX to permissive
+sudo sed -i -e 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
+sudo setenforce Permissive
 
 echo "Init Script Complete"
