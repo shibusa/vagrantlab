@@ -10,7 +10,7 @@ NC='\033[0m'
 
 cd deploydata
 #Download Guest Additions
-vboxversion="5.1.24"
+vboxversion="5.1.26"
 if [[ -z $(ls | grep VBoxGuestAdditions_$vboxversion.iso) ]]; then
   echo -e "${GREEN}Downloading VBoxGuestAdditions_$vboxversion.iso${NC}"
   curl -O http://download.virtualbox.org/virtualbox/$vboxversion/VBoxGuestAdditions_$vboxversion.iso

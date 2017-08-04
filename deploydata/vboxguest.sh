@@ -5,7 +5,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 #Virtualbox Version
-vboxversion="5.1.24"
+vboxversion="5.1.26"
 
 cd /tmp
 
