@@ -16,7 +16,7 @@ if [[ $(modinfo vboxguest | grep -m 1  version | awk '{print $2}') == $vboxversi
 fi
 
 # Download Guest Additions if not copied over by vagrant provision
-if [[ -z $(ls | grep VBoxGuestAdditions_$vboxversion.iso) ]]; then
+if [[ -z $(ls /tmp | grep VBoxGuestAdditions_$vboxversion.iso) ]]; then
   echo -e "${GREEN}Downloading Virtualbox Guest Additions $vboxversion${NC}"
   curl -O http://download.virtualbox.org/virtualbox/$vboxversion/VBoxGuestAdditions_$vboxversion.iso
 fi

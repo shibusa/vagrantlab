@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.9.7"
+Vagrant.configure("2") do |config|
+  # Vagrant ssh private key
+  config.ssh.private_key_path = ["~/.ssh/id_rsa", "~/.vagrant.d/insecure_private_key"]
+  config.ssh.insert_key = false
+
+  # Chef server
+  config.vm.define "vagrant" do |vagrant|
+    vagrant.vm.box = "centos/7"
+    vagrant.vm.hostname = "vagrant"
+    vagrant.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: "192.168.1.5"
+    vagrant.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
+    vagrant.vm.provision "file", source: "../deploydata/VBoxGuestAdditions_5.1.26.iso", destination: "/tmp/VBoxGuestAdditions_5.1.26.iso"
+    vagrant.vm.provision "file", source: "../deploydata/jre-8u144-linux-x64.rpm", destination: "/tmp/jre-8u144-linux-x64.rpm"
+    vagrant.vm.provision :shell, path: "../deploydata/init.sh"
+    vagrant.vm.provision :shell, path: "../deploydata/vboxguest.sh"
+    vagrant.vm.provision :shell, path: "../deploydata/jenkins.sh"
+  end
+end
