@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+if [[ $(sysctl net.ipv6.conf.all.disable_ipv6 | awk '{print $3}') == 0 ]]; then
 # Upgrade everything
 sudo yum upgrade -y
 
@@ -24,4 +25,8 @@ sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
 sudo sed -i -e 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
 sudo setenforce Permissive
 
+#Disable NetworkManager
+sudo systemctl disable NetworkManager
+sudo systemctl stop NetworkManager
+fi
 echo "Init Script Complete"
